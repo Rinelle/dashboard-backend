@@ -10,6 +10,14 @@ export class MarkService {
         private markRepository: typeof Mark
     ) {}
 
+    async getOneById(id: number) {
+        try {
+            return this.markRepository.findByPk(id)
+        } catch (e) {
+            throw e;
+        }
+    }
+
     async getMarks() {
         try {
             return this.markRepository.findAll({
@@ -21,11 +29,20 @@ export class MarkService {
     }
 
     async createMarks(data: MarkDto) {
-        if (!data.title) {
-            throw new HttpException('Название метки не задано', HttpStatus.BAD_REQUEST)
-        }
         try {
-            return this.markRepository.create(data);
+            if (!data.title) {
+                throw new HttpException('Название метки не задано', HttpStatus.BAD_REQUEST)
+            }
+
+            const result = await this.markRepository.create(data);
+
+            if (result) {
+                return {
+                    message: 'Метка успешно создана'
+                }
+            }
+
+            throw new HttpException('Метка не создана', HttpStatus.INTERNAL_SERVER_ERROR)
         } catch (e) {
             throw e;
         }

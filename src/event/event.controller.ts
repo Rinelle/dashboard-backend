@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post, Query } from '@nestjs/common';
 import { MarkService } from '../mark/mark.service';
 import { MarkDto } from '../mark/dto/mark-dto';
 import { EventService } from './event.service';
@@ -11,9 +11,9 @@ export class EventController {
     ) { }
 
     @Get()
-    async getMarks() {
+    async getMarks(@Query() query: { day?: number; markId?: number; }) {
         return {
-            data: await this.eventService.getEvents()
+            data: await this.eventService.getEvents(query)
         }
     }
 
@@ -21,6 +21,13 @@ export class EventController {
     async createMarks(@Body() data: EventDto) {
         return {
             data: await this.eventService.createEvent(data)
+        }
+    }
+
+    @Delete()
+    async deleteEvent(@Body() data: { id: number }) {
+        return {
+            data: await this.eventService.deleteEvent(data.id)
         }
     }
 }

@@ -1,4 +1,4 @@
-import { BelongsTo, Column, DataType, HasMany, HasOne, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, DataType, ForeignKey, HasMany, HasOne, Model, Table } from 'sequelize-typescript';
 import { Mark } from '../mark/mark.model';
 
 @Table({
@@ -26,6 +26,9 @@ export class Event extends Model<Event> {
     })
     completeDate: string;
 
-    @BelongsTo(() => Mark, 'markId')
+    @ForeignKey(() => Mark)
+    markId: number
+
+    @BelongsTo(() => Mark)
     mark: Mark;
 }

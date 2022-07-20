@@ -26,6 +26,6 @@ export class Mark extends Model<Mark> {
     })
     color: string;
 
-    @HasMany(() => Event, 'markId')
+    @HasMany(() => Event)
     events: Event[]
 }

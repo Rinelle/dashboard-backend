@@ -1,12 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { EventController } from './event/event.controller';
 import { EventModule } from './event/event.module';
-import { MarkController } from './mark/mark.controller';
 import { MarkModule } from './mark/mark.module';
 import { Mark } from './mark/mark.model';
 import { Event } from './event/event.model';
+import { MarkService } from './mark/mark.service';
 
 @Module({
     imports: [
