@@ -3,6 +3,10 @@ import { MarkService } from '../mark/mark.service';
 import { MarkDto } from '../mark/dto/mark-dto';
 import { EventService } from './event.service';
 import { EventDto } from './dto/event-dto';
+import { ApiBody, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { GetEventDto } from './dto/getEvent-dto';
+import { DeleteEventDto } from './dto/deleteEvent-dto';
+import { CreateEventDto } from './dto/createEvent-dto';
 
 @Controller('event')
 export class EventController {
@@ -11,21 +15,39 @@ export class EventController {
     ) { }
 
     @Get()
-    async getMarks(@Query() query: { day?: number; markId?: number; }) {
+    @ApiResponse({
+        status: 200,
+        description: 'Возврщает все события согласно переданным параметрам',
+        type: [EventDto]
+    })
+    @ApiTags('События')
+    async getMarks(@Query() query: GetEventDto) {
         return {
             data: await this.eventService.getEvents(query)
         }
     }
 
     @Post()
-    async createMarks(@Body() data: EventDto) {
+    @ApiResponse({
+        status: 200,
+        description: 'Создание события'
+    })
+    @ApiTags('События')
+    @ApiBody({ type: CreateEventDto })
+    async createMarks(@Body() data: CreateEventDto) {
         return {
             data: await this.eventService.createEvent(data)
         }
     }
 
     @Delete()
-    async deleteEvent(@Body() data: { id: number }) {
+    @ApiResponse({
+        status: 200,
+        description: 'Удаление события по ID'
+    })
+    @ApiTags('События')
+    @ApiBody({ type: DeleteEventDto })
+    async deleteEvent(@Body() data: DeleteEventDto) {
         return {
             data: await this.eventService.deleteEvent(data.id)
         }

@@ -1,9 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class EventDto {
+export class CreateEventDto {
     @ApiProperty({
         required: true,
-        description: 'Текст события'
+        description: 'Текст собятия'
     })
     text: string;
 
@@ -18,10 +18,4 @@ export class EventDto {
         description: 'ID метки'
     })
     markId?: number;
-
-    @ApiProperty({
-        required: true,
-        description: 'Флаг, отвечает за то просрочено событие или нет по отношению к текущему времени'
-    })
-    isExpired: boolean;
 }

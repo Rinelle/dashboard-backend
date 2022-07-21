@@ -5,6 +5,7 @@ import { Event } from './event.model';
 import { EventDto } from './dto/event-dto';
 import { Op } from 'sequelize';
 import { MarkService } from '../mark/mark.service';
+import { CreateEventDto } from './dto/createEvent-dto';
 
 @Injectable()
 export class EventService {
@@ -49,7 +50,7 @@ export class EventService {
         }
     }
 
-    async createEvent(data: EventDto) {
+    async createEvent(data: CreateEventDto) {
         if (!(data.text && data.completeDate)) {
             throw new HttpException('Не заданы текст и дата', HttpStatus.BAD_REQUEST)
         }
