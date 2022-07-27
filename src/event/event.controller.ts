@@ -1,9 +1,7 @@
 import { Body, Controller, Delete, Get, Post, Query } from '@nestjs/common';
-import { MarkService } from '../mark/mark.service';
-import { MarkDto } from '../mark/dto/mark-dto';
 import { EventService } from './event.service';
 import { EventDto } from './dto/event-dto';
-import { ApiBody, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { GetEventDto } from './dto/getEvent-dto';
 import { DeleteEventDto } from './dto/deleteEvent-dto';
 import { CreateEventDto } from './dto/createEvent-dto';

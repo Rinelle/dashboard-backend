@@ -30,6 +30,13 @@ export class EventService {
                 [Op.between]: [startDate, endDate]
             }
         }
+
+        if (params.markId) {
+            if (isNaN(Number(params.markId))) {
+                throw new HttpException('ID метки должно быть цифрой', HttpStatus.BAD_REQUEST);
+            }
+            where['markId'] = params.markId;
+        }
         try {
             return this.eventRepository.findAll({
                 attributes: ['id', 'text', 'completeDate'],
